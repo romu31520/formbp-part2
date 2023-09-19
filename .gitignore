@@ -1,0 +1,9 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+individu_reg.*
+*.csv
+secrets.yaml
+core
+*.png
