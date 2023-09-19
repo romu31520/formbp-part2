@@ -28,15 +28,17 @@ df <- arrow::read_parquet(
 )
 
 # RETRAITEMENT --------------------------------
-
-df <- df %>%
+retraitement_donnees <- function(base) {
+base_f <- base %>%
   mutate(aged = as.numeric(aged))
 
-df$sexe <- df$sexe %>%
+base_f$sexe <- base_f$sexe %>%
   as.character() %>%
   fct_recode(Homme = "1", Femme = "2")
 
+return(base_f)
 
+}
 # STATISTIQUES DESCRIPTIVES --------------------
 
 summarise(group_by(df, aged), n())
@@ -52,8 +54,8 @@ df3 <- df %>%
   group_by(couple) %>%
   mutate(y = 100 * x / sum(x))
 
-
-stats_age <- df %>%
+produce_table_age <- function(base) {
+stats_age <- base %>%
   group_by(decennie = decennie_a_partir_annee(age)) %>%
   summarise(n())
 
@@ -71,6 +73,8 @@ table_age <- gt::gt(stats_age) %>%
     `n()` = "Population"
   )
 
+return(table_age)
+}
 
 # GRAPHIQUES -----------------------------------
 

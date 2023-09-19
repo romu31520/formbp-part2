@@ -7,3 +7,4 @@ individu_reg.*
 secrets.yaml
 core
 *.png
+_targets/
